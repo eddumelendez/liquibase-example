@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Liquibase Security">
+	
+	<property file="param.properties" />
+
+	<condition property="mvn.executable" value="mvn.bat" else="mvn">
+		<os family="windows" />
+	</condition>
+
+<!-- 	<path id="master-classpath"> -->
+<!-- 		<fileset dir="${lib.dir}"> -->
+<!-- 			<include name="*.jar" /> -->
+<!-- 		</fileset> -->
+<!-- 	</path> -->
+
+	<target name="mvn_liquibase_update_ddl">
+		<echo message="Deploying DDL into database..." />
+		<exec executable="${mvn.executable}">
+			<arg
+				line="liquibase:update" />
+		</exec>
+	</target>
+	
+	<target name="mvn_liquibase_rollback_ddl">
+		<echo message="Deploying DDL into database..." />
+		<exec executable="${mvn.executable}">
+			<arg
+				line="liquibase:rollback -Dliquibase.rollbackTag=${tag}" />
+		</exec>
+	</target>
+	
+	<target name="mvn_liquibase_status">
+		<exec executable="${mvn.executable}">
+			<arg
+				line="liquibase:status" />
+		</exec>
+	</target>
+	
+	<target name="mvn_liquibase_dbDoc">
+		<exec executable="${mvn.executable}">
+			<arg
+				line="liquibase:dbDoc" />
+		</exec>
+	</target>
+	
+	<target name="mvn_liquibase_tag">
+		<exec executable="${mvn.executable}">
+			<arg
+				line="liquibase:tag -Dliquibase.tag=${tag}" />
+		</exec>
+	</target>
+	
+	<target name="mvn_clean">
+		<exec executable="${mvn.executable}">
+			<arg
+				line="clean" />
+		</exec>
+	</target>
+
+</project>
